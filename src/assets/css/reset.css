@@ -1,0 +1,102 @@
+
+html {
+overflow-x:auto;
+overflow-y:scroll;
+}
+body, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, p, blockquote, th, td {
+font-weight:400;
+margin:0;
+padding:0;
+}
+h1, h2, h3, h4, h4, h5 {
+margin:0;
+padding:0;
+}
+body {
+color:#666666;
+font-family:Helvetica,Arial,sans-serif;
+}
+table {
+border-collapse:collapse;
+}
+fieldset, img {
+border:0 none;
+}
+fieldset {
+margin:0;
+padding:0;
+}
+fieldset p {
+margin:0;
+padding:0 0 0 8px;
+}
+legend {
+display:none;
+}
+address, caption, em, strong, th, i {
+font-style:normal;
+font-weight:400;
+}
+table caption {
+margin-left:-1px;
+}
+hr {
+border-bottom:1px solid #FFFFFF;
+border-top:1px solid #E4E4E4;
+border-width:1px 0;
+clear:both;
+height:2px;
+margin:5px 0;
+overflow:hidden;
+}
+ol, ul {
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+}
+caption, th {
+text-align:left;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+content:””;
+}
+a {color: #666;display: block;}
+input {outline: none;}
+/* 公共样式 */
+.flex{
+    display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */ display: -moz-box; /* Firefox 17- */  
+    display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */  
+    display: -moz-flex; /* Firefox 18+ */  
+    display: -ms-flexbox; /* IE 10 */  
+    display: flex;
+}
+.clearfix:after {
+content: "";
+display: block;
+visibility: hidden;
+height: 0;
+clear: both;
+}
+.clearfix {zoom: 1;}
+.fl{float: left;}
+.fr{float: right;}
+/*单行溢出*/
+.one-txt-cut{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+}
+/*多行溢出 手机端使用*/
+.txt-cut{
+overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+/* 文字颜色 */
+.text-red{color:#d72f2f;}
+/* 文字大小 */
+.f12{font-size: 0.32rem;}
+/* margin值 */
+.mb20{margin-bottom: 0.266666rem;}
