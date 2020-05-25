@@ -1,13 +1,22 @@
 <template>
-	<div class="tab-bar-item">
+	<div class="tab-bar-item" @click="itemLink">
 		<slot name="item-icon"></slot>
+		<slot name="item-icon-active"></slot>
 		<slot name="item-text"></slot>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'TabBarItem'
+		name: 'TabBarItem',
+		props: {
+			path: String
+		},
+		methods: {
+			itemLink() {
+				this.$router.push(this.path)
+			}
+		}
 	}
 </script>
 
