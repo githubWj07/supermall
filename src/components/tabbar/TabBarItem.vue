@@ -1,8 +1,9 @@
 <template>
 	<div class="tab-bar-item" @click="itemLink">
-		<slot name="item-icon"></slot>
-		<slot name="item-icon-active"></slot>
-		<slot name="item-text"></slot>
+		<div v-if="!isActive"><slot name="item-icon"></slot></div>
+		<div v-else><slot name="item-icon-active"></slot></div>
+		<!-- <div :class="{active: isActive}"><slot name="item-text"></slot></div> -->
+		<div :style="activeColor"><slot name="item-text"></slot></div>
 	</div>
 </template>
 
@@ -10,7 +11,22 @@
 	export default {
 		name: 'TabBarItem',
 		props: {
-			path: String
+			path: String,
+			activeStyle: {
+				type: String,
+				default: 'red'
+			}
+		},
+		data(){
+			return {}
+		},
+		computed: {
+			isActive(){
+				return this.$route.path.indexOf(this.path) !== -1;
+			},
+			activeColor(){
+				return this.isActive ? {color: this.activeStyle} : {}
+			}
 		},
 		methods: {
 			itemLink() {
@@ -21,7 +37,6 @@
 </script>
 
 <style lang="less" scoped>
-	
 	.tab-bar-item {
 		flex: 1;
 		text-align: center;
@@ -32,5 +47,4 @@
 			vertical-align: middle;
 		}
 	}
-	
 </style>
