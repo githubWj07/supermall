@@ -9,6 +9,10 @@ const My = () => import('../views/my/My.vue')
 Vue.use(VueRouter)
 
   const routes = [
+  { 
+	path: '/', 
+	redirect: '/home'
+  },
   {
     path: '/home',
     name: 'Home',
