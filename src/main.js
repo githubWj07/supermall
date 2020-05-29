@@ -16,9 +16,9 @@ new Vue({
 // 	console.log(res)
 // })
 
-import {request} from "./network/request.js"
-request({
-	url:'http://123.207.32.32:8000/home/multidata'
-}).then(res =>{
-	console.log(res)
-})
+// import {request} from "./network/request.js"
+// request({
+// 	url:'http://123.207.32.32:8000/home/multidata'
+// }).then(res =>{
+// 	console.log(res)
+// })
