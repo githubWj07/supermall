@@ -60,7 +60,7 @@ text-align:left;
 q:before, q:after, blockquote:before, blockquote:after {
 content:””;
 }
-a {color: #666;display: block;}
+a {color: #666;display: block;text-decoration: none;}
 input {outline: none;}
 /* 公共样式 */
 .flex{
