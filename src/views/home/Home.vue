@@ -37,7 +37,7 @@
 				this.recommends = res.data.data.recommend.list;
 			})
 		}
-	}
+	} 
 </script>
 
 <style>
