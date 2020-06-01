@@ -8,12 +8,15 @@
 		<home-swiper :banners="banners"></home-swiper>
 		<home-recommend :recommends="recommends"></home-recommend>
 		<home-feature />
+		<tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
 	</div>
 	
 </template>
 
 <script>
 	import NavBar from "components/common/navbar/NavBar";
+	import TabControl from "components/content/tabControl/TabControl";
+	
 	import HomeSwiper from "./childComp/HomeSwiper";
 	import HomeRecommend from "./childComp/HomeRecommend";
 	import HomeFeature from "./childComp/HomeFeature";
@@ -31,6 +34,7 @@
 		},
 		components: {
 			NavBar,
+			TabControl,
 			HomeSwiper,
 			HomeRecommend,
 			HomeFeature
@@ -50,6 +54,7 @@
 <style>
 	#home {
 		padding-top: 44px;
+		padding-bottom: 50px;
 	}
 	.home-nav {
 		color: #fff;
@@ -58,5 +63,9 @@
 		top: 0;
 		left: 0;
 		right: 0;
+	}
+	.tab-control {
+		position: sticky;
+		top: 44px;
 	}
 </style>
