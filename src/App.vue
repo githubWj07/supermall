@@ -16,5 +16,6 @@
 </script>
 
 <style lang="less">
+	@import "assets/css/normalize.css";
 	@import "assets/css/reset.css";
 </style>
