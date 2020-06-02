@@ -10,7 +10,7 @@
 }
 
 html {
-overflow-x:auto;
+overflow-x:hidden;
 overflow-y:scroll;
 }
 body, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, p, blockquote, th, td {
