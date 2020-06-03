@@ -5,6 +5,7 @@
 				<div>购物街</div>
 			</template>
 		</nav-bar>
+<<<<<<< HEAD
 		<home-swiper :banners="banners"></home-swiper>
 		<home-recommend :recommends="recommends"></home-recommend>
 		<home-feature />
@@ -15,9 +16,23 @@
 	</div>
 	
 </template>currentType
+=======
+		<scroll class="content">
+			<home-swiper :banners="banners"></home-swiper>
+			<home-recommend :recommends="recommends"></home-recommend>
+			<home-feature />
+			<tab-control class="tab-control" 
+						 :titles="['流行','新款','精选']"
+						 @tabItemClick="tabItemClick" />
+			<goods-list :goods="goods[currentType].list"></goods-list>
+		</scroll>
+	</div>
+</template>
+>>>>>>> ffd7cf776aeac2371805e31f3c7a2847f661155e
 
 <script>
 	import NavBar from "components/common/navbar/NavBar";
+	import Scroll from "../../components/common/scroll/Scroll.vue";
 	import TabControl from "components/content/tabControl/TabControl";
 	import GoodsList from "components/content/goodsList/GoodsList";
 	
@@ -44,6 +59,7 @@
 			NavBar,
 			TabControl,
 			GoodsList,
+			Scroll,
 			HomeSwiper,
 			HomeRecommend,
 			HomeFeature
@@ -60,6 +76,7 @@
 		methods: {
 			tabItemClick(index){
 				switch(index){
+<<<<<<< HEAD
 					case 0: 
 					this.currentType = 'pop'
 					break;
@@ -71,6 +88,19 @@
 					break;
 					
 				}
+=======
+					case 0:
+					this.currentType = 'pop';
+					break;
+					case 1:
+					this.currentType = 'new';
+					break;
+					case 2:
+					this.currentType = 'sell';
+					break;
+				}
+				console.log(index);
+>>>>>>> ffd7cf776aeac2371805e31f3c7a2847f661155e
 			},
 			//请求多个数据（banner,类目）
 			getHomeMulitData(){
@@ -94,9 +124,9 @@
 
 <style lang="less" scoped>
 	#home {
-		padding-top: 44px;
-		padding-bottom: 50px;
-		overflow-x: hidden;
+		// padding-top: 44px;
+		position: relative;
+		height: 100vh;
 	}
 	.home-nav {
 		color: #fff;
@@ -105,10 +135,20 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		z-index: 9;
 	}
 	.tab-control {
 		position: sticky;
 		top: 44px;
 		z-index: 9;
+	}
+	.content {
+		// height: 300px;
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 44px;
+		bottom: 49px;
 	}
 </style>
