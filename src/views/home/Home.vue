@@ -11,10 +11,10 @@
 		<tab-control class="tab-control" 
 					 :titles="['流行','新款','精选']"
 					 @tabItemClick="tabItemClick" />
-		<goods-list :goods="goods['pop'].list"></goods-list>
+		<goods-list :goods="goods[currentType].list"></goods-list>
 	</div>
 	
-</template>
+</template>currentType
 
 <script>
 	import NavBar from "components/common/navbar/NavBar";
@@ -36,7 +36,8 @@
 					'pop': {page: 0, list:[]},
 					'new': {page: 0, list:[]},
 					'sell': {page: 0, list:[]}
-				}
+				},
+				currentType: 'pop'
 			}
 		},
 		components: {
@@ -58,7 +59,18 @@
 		},
 		methods: {
 			tabItemClick(index){
-				console.log(index)
+				switch(index){
+					case 0: 
+					this.currentType = 'pop'
+					break;
+					case 1:
+					this.currentType = 'new'
+					break;
+					case 2:
+					this.currentType = 'sell'
+					break;
+					
+				}
 			},
 			//请求多个数据（banner,类目）
 			getHomeMulitData(){
