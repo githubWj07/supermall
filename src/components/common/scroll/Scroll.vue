@@ -10,14 +10,24 @@
 	import BScroll from "better-scroll";
 	export default {
 		name: 'Scroll',
+		props: {
+			probeType: {
+				type: Number,
+				default: 0
+			}
+		},
 		data() {
 			return {
-				scroll: null
+				scroll: null,
 			}
 		},
 		mounted() {
 			this.scroll = new BScroll (this.$refs.wrapper,{
-				click: true
+				click: true,
+				probeType: this.probeType
+			}),
+			this.scroll.on('scroll',(position) =>{
+				this.$emit('scroll',position)
 			})
 		}
 	}

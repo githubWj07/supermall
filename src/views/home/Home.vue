@@ -5,19 +5,8 @@
 				<div>购物街</div>
 			</template>
 		</nav-bar>
-<<<<<<< HEAD
-		<home-swiper :banners="banners"></home-swiper>
-		<home-recommend :recommends="recommends"></home-recommend>
-		<home-feature />
-		<tab-control class="tab-control" 
-					 :titles="['流行','新款','精选']"
-					 @tabItemClick="tabItemClick" />
-		<goods-list :goods="goods[currentType].list"></goods-list>
-	</div>
-	
-</template>currentType
-=======
-		<scroll class="content">
+
+		<scroll class="content" ref="scroll" :probe-type="3" @scroll="homeScroll">
 			<home-swiper :banners="banners"></home-swiper>
 			<home-recommend :recommends="recommends"></home-recommend>
 			<home-feature />
@@ -26,15 +15,16 @@
 						 @tabItemClick="tabItemClick" />
 			<goods-list :goods="goods[currentType].list"></goods-list>
 		</scroll>
+		<back-top @click.native="backTop" v-show="isBackTopShow"></back-top>
 	</div>
 </template>
->>>>>>> ffd7cf776aeac2371805e31f3c7a2847f661155e
 
 <script>
 	import NavBar from "components/common/navbar/NavBar";
-	import Scroll from "../../components/common/scroll/Scroll.vue";
 	import TabControl from "components/content/tabControl/TabControl";
 	import GoodsList from "components/content/goodsList/GoodsList";
+	import BackTop from "components/content/backTop/BackTop.vue";
+	import Scroll from "components/common/scroll/Scroll.vue";
 	
 	import HomeSwiper from "./childComp/HomeSwiper";
 	import HomeRecommend from "./childComp/HomeRecommend";
@@ -52,13 +42,15 @@
 					'new': {page: 0, list:[]},
 					'sell': {page: 0, list:[]}
 				},
-				currentType: 'pop'
+				currentType: 'pop',
+				isBackTopShow: false
 			}
 		},
 		components: {
 			NavBar,
 			TabControl,
 			GoodsList,
+			BackTop,
 			Scroll,
 			HomeSwiper,
 			HomeRecommend,
@@ -76,7 +68,6 @@
 		methods: {
 			tabItemClick(index){
 				switch(index){
-<<<<<<< HEAD
 					case 0: 
 					this.currentType = 'pop'
 					break;
@@ -88,19 +79,7 @@
 					break;
 					
 				}
-=======
-					case 0:
-					this.currentType = 'pop';
-					break;
-					case 1:
-					this.currentType = 'new';
-					break;
-					case 2:
-					this.currentType = 'sell';
-					break;
-				}
 				console.log(index);
->>>>>>> ffd7cf776aeac2371805e31f3c7a2847f661155e
 			},
 			//请求多个数据（banner,类目）
 			getHomeMulitData(){
@@ -115,8 +94,15 @@
 				getHomeGoods(type, page).then(res => {
 					this.goods[type].list.push(...res.data.data.list);//将数值保存在list中
 					this.goods[type].page += 1;//page加1
-					console.log(res)
 				})
+			},
+			//返回顶部
+			backTop() {
+				this.$refs.scroll.scroll.scrollTo(0,0,1000);
+			},
+			homeScroll(position){
+				this.isBackTopShow = -(position.y) >700;
+				console.log(position)
 			}
 		}
 	} 
