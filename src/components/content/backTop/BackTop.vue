@@ -1,6 +1,6 @@
 <template>
 	<div class="back-top">
-		<img src="~assets/images/back-top_icon.png" alt="">
+		<img src="~assets/images/back-top.png" />
 	</div>
 </template>
 
@@ -8,19 +8,19 @@
 	export default {
 		name: 'BackTop',
 		methods: {
+			
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 	.back-top {
-		position: absolute;
-		bottom: 55px;
-		right: 10px;
-		z-index: 6;
 		img {
-			width: 43px;
-			height: 43px;
+			width: 30px;
+			height: 30px;
 		}
+		position: fixed;
+		bottom: 55px;
+		right: 10px;;
 	}
 </style>
