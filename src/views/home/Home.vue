@@ -31,7 +31,7 @@
 
 <script>
 	import NavBar from "components/common/navbar/NavBar";
-	import Scroll from "../../components/common/scroll/Scroll.vue";
+	import Scroll from "components/common/scroll/Scroll.vue";
 	import TabControl from "components/content/tabControl/TabControl";
 	import GoodsList from "components/content/goodsList/GoodsList";
 	import BackTop from "components/content/backTop/BackTop";
@@ -55,7 +55,8 @@
 				currentType: 'pop',
 				isShowBackTop: false,
 				tabOffsetTop: 0,
-				isTabShow: false
+				isTabShow: false,
+				saveY: 0
 			}
 		},
 		components: {
@@ -67,6 +68,15 @@
 			HomeSwiper,
 			HomeRecommend,
 			HomeFeature
+		},
+		activated() {
+			this.$refs.scroll.scrollTo(0, this.saveY, 0)
+			this.$refs.scroll.refresh();
+			// console.log(this.saveY + 'activated')
+		},
+		deactivated() {
+			this.saveY = this.$refs.scroll.scroll.y
+			// console.log(this.saveY + 'deactivated')
 		},
 		created() {
 			//请求多个数据（banner,类目）
@@ -80,8 +90,8 @@
 		},
 		mounted() {
 			//请求数据列表后刷新
-			this.$bus.$on('itemImgLoad',() => {
-				console.log(this.$refs.scroll.refresh())
+			this.$bus.$on('itemImgLoad', ()=> {
+				// console.log(this.$refs.scroll.refresh()
 				this.$refs.scroll.refresh();
 			})
 		},
