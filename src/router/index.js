@@ -5,6 +5,7 @@ const Home = () => import('../views/home/Home.vue')
 const Sort = () => import('../views/sort/Sort.vue')
 const Cart = () => import('../views/cart/Cart.vue')
 const My = () => import('../views/my/My.vue')
+const Detail = () => import('../views/detail/Detail.vue')
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ Vue.use(VueRouter)
     path: '/my',
     name: 'My',
 	component: My
+  },
+  {
+    path: '/detail/:iid',
+    name: 'Detail',
+	component: Detail
   }
 ]
 
