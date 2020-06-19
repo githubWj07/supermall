@@ -1,10 +1,16 @@
 <template>
 	<div v-if="Object.keys(detailInfo).length !== 0">
-		<p class="desc">{{detailInfo.desc}}</p>
-		<p class="desc">{{detailInfo.detailImage[0].key}}</p>
-		<p v-for="(item,index) in detailInfo.detailImage[0].list" :key="index">
-			<img :src="item" alt="" class="img" @load="imgLoad">
-		</p>
+		<div class="info-text-wrap">
+			<div class="text-top-style"></div>
+			<div class="desc">{{detailInfo.desc}}</div>
+			<div class="text-bot-style"></div>
+		</div>
+		<div class="img-list-wrap" v-for="item in detailInfo.detailImage">
+			<div class="desc">{{item.key}}</div>
+			<div v-for="(item, index) in item.list" :key="index">
+				<img :src="item" alt="" class="img" @load="imgLoad">
+			</div>
+		</div>
 	</div>
 </template>
 

@@ -17,7 +17,7 @@
 
 <script>
 	import Scroll from "components/common/scroll/Scroll.vue";
-	import BackTop from "components/content/backTop/BackTop";
+	import BackTop from "components/content/backTop/BackTop.vue";
 	
 	import DetailTabBar from './childCopm/DetailTabBar.vue'
 	import DetailSwiper from './childCopm/DetailSwiper.vue'
@@ -95,7 +95,7 @@
 	}
 	.top-nav {
 		background-color: #fff;
-		position: fixed;
+		position: relative;
 		top: 0;
 		left: 0;
 		right: 0;

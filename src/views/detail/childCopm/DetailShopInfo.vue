@@ -23,6 +23,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="enter-shop-wrap">
+			<div class="enter-shop">进店逛逛</div>
+		</div>
 	</div>
 </template>
 
@@ -101,4 +104,16 @@
 			}
 		}
 	}
+	.enter-shop-wrap{
+		text-align: center;
+		.enter-shop {
+			display: inline-block;
+			background-color: #f2f2f2;
+			font-size: 12px;
+			padding: 6px 30px;
+			border-radius: 100px;
+			margin: 10px;
+		}
+	}
+	
 </style>
