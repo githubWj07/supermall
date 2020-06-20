@@ -10,6 +10,7 @@ export function getDetail(iid){
 	})
 }
 
+//商品基本信息
 export class Goods {
 	constructor(itemInfo, columns, shopInfo) {
 	    this.title = itemInfo.title;
@@ -21,6 +22,7 @@ export class Goods {
 	}
 }
 
+//商铺信息
 export class Shop {
 	constructor(shopInfo) {
 	    this.shopLogo = shopInfo.shopLogo;
@@ -30,3 +32,13 @@ export class Shop {
 		this.cGoods = shopInfo.cGoods;
 	}
 }
+
+//参数信息
+export class Param {
+	constructor(info, rule) {
+	    this.info = info.set;
+		this.rule = rule.tables;
+	}
+}
+
+

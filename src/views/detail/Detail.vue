@@ -9,6 +9,7 @@
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info :shop="shop"></detail-shop-info>
 			<detail-goods-info :detailInfo="detailInfo" @imgLoad="goodsImgLoad"></detail-goods-info>
+			<detail-param-info :paramInfo="paramInfo"></detail-param-info>
 		</scroll>
 		<back-top @click.native="backTop" v-show="isShowBackTop" />
 	</div>
@@ -16,15 +17,16 @@
 
 <script>
 	import Scroll from "components/common/scroll/Scroll.vue";
-	import BackTop from "components/content/backTop/BackTop";
+	import BackTop from "components/content/backTop/BackTop.vue";
 	
 	import DetailTabBar from './childCopm/DetailTabBar.vue'
 	import DetailSwiper from './childCopm/DetailSwiper.vue'
 	import DetailBaseInfo from './childCopm/DetailBaseInfo.vue'
 	import DetailShopInfo from './childCopm/DetailShopInfo.vue'
 	import DetailGoodsInfo from './childCopm/DetailGoodsInfo.vue'
+	import DetailParamInfo from './childCopm/DetailParamInfo.vue'
 	
-	import {getDetail, Goods, Shop} from 'network/detail.js'
+	import {getDetail, Goods, Shop, Param} from 'network/detail.js'
 	export default {
 		name: 'Detail',
 		components: {
@@ -34,7 +36,8 @@
 			DetailSwiper,
 			DetailBaseInfo,
 			DetailShopInfo,
-			DetailGoodsInfo
+			DetailGoodsInfo,
+			DetailParamInfo
 		},
 		data() {
 			return {
@@ -43,6 +46,7 @@
 				goods: {},
 				shop: {},
 				detailInfo: {},
+				paramInfo:{},
 				isShowBackTop: false
 			}
 		},
@@ -54,13 +58,16 @@
 			getDetail(this.iid).then(res => {
 				console.log(res)
 				const data = res.data.result;
-				//获取顶部banner
+				//1.获取顶部banner
 				this.topBnner = data.itemInfo.topImages
-				//获取商品详情
+				//2.获取商品详情
 				this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo)
-				//获取商家详情
+				//3.获取商家详情
 				this.shop = new Shop(data.shopInfo)
+				//4.获取商家详情图片
 				this.detailInfo = data.detailInfo
+				//获取参数信息
+				this.paramInfo = new Param(data.itemParams.info, data.itemParams.rule)
 			})
 		},
 		methods: {
@@ -88,7 +95,7 @@
 	}
 	.top-nav {
 		background-color: #fff;
-		position: fixed;
+		position: relative;
 		top: 0;
 		left: 0;
 		right: 0;
