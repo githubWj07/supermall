@@ -58,7 +58,8 @@
 				paramInfo: {},
 				commentInfo: [],
 				recommendInfo: [],
-				isShowBackTop: false
+				isShowBackTop: false,
+				themeTopY:[]
 			}
 		},
 		created() {
@@ -102,6 +103,14 @@
 			},
 			goodsImgLoad() {
 				this.$refs.scroll.refresh();
+				this.themeTopY = [];
+				this.themeTopY.push(0);
+				this.themeTopY.push(this.$refs.param.$el.offsetTop);
+				this.themeTopY.push(this.$refs.comment.$el.offsetTop);
+				this.themeTopY.push(this.$refs.recommend.$el.offsetTop);
+			},
+			titleClick(index){
+				this.$refs.scroll.scrollTo(0, -this.themeTopY[index], 200)
 			}
 		}
 	}
