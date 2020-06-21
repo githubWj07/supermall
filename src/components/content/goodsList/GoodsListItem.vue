@@ -1,6 +1,6 @@
 <template>
 	<div class="goods-list-item" @click="itemLink">
-		<img :src="goodsItem.show.img" class="goods-list-img" @load="itemImgLoad">
+		<img :src="showImg" class="goods-list-img" @load="itemImgLoad">
 		<div class="goods-list-text">
 			<div class="goods-list-name one-txt-cut">{{goodsItem.title}}</div>
 			<div class="goods-list-price">
@@ -30,18 +30,24 @@
 			itemLink() {
 				this.$router.push('/detail/' + this.goodsItem.iid)
 			}
+		},
+		computed: {
+			showImg(){
+				return this.goodsItem.image || this.goodsItem.show.img;
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 	.goods-list-item {
-		width: 45%;
+		width: 49%;
 		height: auto;
+		padding-top: 6px;
+		font-size: 14px;
 		.goods-list-img{
 			width: 100%;
 			height: auto;
-			margin-bottom: 6px;
 			border-radius: 4px;
 		}
 		.goods-list-price {

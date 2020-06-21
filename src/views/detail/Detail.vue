@@ -1,6 +1,6 @@
 <template>
 	<div class="detail">
-		<detail-tab-bar class="top-nav"></detail-tab-bar>
+		<detail-tab-bar class="top-nav" @titleClick="titleClick"></detail-tab-bar>
 		<scroll class="content" 
 			ref="scroll"
 			:probeType="3" 
@@ -9,7 +9,10 @@
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info :shop="shop"></detail-shop-info>
 			<detail-goods-info :detailInfo="detailInfo" @imgLoad="goodsImgLoad"></detail-goods-info>
-			<detail-param-info :paramInfo="paramInfo"></detail-param-info>
+			<detail-param-info :paramInfo="paramInfo" ref="param"></detail-param-info>
+			<detail-comment-info :commentInfo="commentInfo" ref="comment"></detail-comment-info>
+			<!-- 组件复用 -->
+			<goods-list :goods="recommendInfo" ref="recommend"></goods-list>
 		</scroll>
 		<back-top @click.native="backTop" v-show="isShowBackTop" />
 	</div>
@@ -18,6 +21,7 @@
 <script>
 	import Scroll from "components/common/scroll/Scroll.vue";
 	import BackTop from "components/content/backTop/BackTop.vue";
+	import GoodsList from "components/content/goodsList/GoodsList";
 	
 	import DetailTabBar from './childCopm/DetailTabBar.vue'
 	import DetailSwiper from './childCopm/DetailSwiper.vue'
@@ -25,8 +29,10 @@
 	import DetailShopInfo from './childCopm/DetailShopInfo.vue'
 	import DetailGoodsInfo from './childCopm/DetailGoodsInfo.vue'
 	import DetailParamInfo from './childCopm/DetailParamInfo.vue'
+	import DetailCommentInfo from './childCopm/DetailCommentInfo.vue'
+	// import DetailRecommendInfo from './childCopm/DetailRecommendInfo.vue'
 	
-	import {getDetail, Goods, Shop, Param} from 'network/detail.js'
+	import {getDetail, Goods, Shop, Param, getRecommend} from 'network/detail.js'
 	export default {
 		name: 'Detail',
 		components: {
@@ -37,7 +43,10 @@
 			DetailBaseInfo,
 			DetailShopInfo,
 			DetailGoodsInfo,
-			DetailParamInfo
+			DetailParamInfo,
+			DetailCommentInfo,
+			// DetailRecommendInfo
+			GoodsList
 		},
 		data() {
 			return {
@@ -46,7 +55,9 @@
 				goods: {},
 				shop: {},
 				detailInfo: {},
-				paramInfo:{},
+				paramInfo: {},
+				commentInfo: [],
+				recommendInfo: [],
 				isShowBackTop: false
 			}
 		},
@@ -56,7 +67,7 @@
 			
 			//根据iid请求详情数据
 			getDetail(this.iid).then(res => {
-				console.log(res)
+				// console.log(res)
 				const data = res.data.result;
 				//1.获取顶部banner
 				this.topBnner = data.itemInfo.topImages
@@ -66,8 +77,18 @@
 				this.shop = new Shop(data.shopInfo)
 				//4.获取商家详情图片
 				this.detailInfo = data.detailInfo
-				//获取参数信息
+				//5.获取参数信息
 				this.paramInfo = new Param(data.itemParams.info, data.itemParams.rule)
+				//6.获取评论信息
+				if(data.rate.cRate !== 0){
+					this.commentInfo = data.rate.list
+				}
+			})
+			//请求推荐数据
+			getRecommend().then(res => {
+				console.log(res)
+				this.recommendInfo = res.data.data.list
+				console.log(this.recommendInfo)
 			})
 		},
 		methods: {
@@ -80,7 +101,7 @@
 				this.isShowBackTop = (-position.y) > 500;
 			},
 			goodsImgLoad() {
-				this.$refs.scroll.refresh()
+				this.$refs.scroll.refresh();
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="Object.keys(paramInfo).length !== 0">
+	<div v-if="Object.keys(paramInfo).length !== 0" class="params-wrap">
 		<div v-for="(item, index) in paramInfo.rule">
 			<div v-for="(list, index) in item" class="flex">
 				<div v-for="(listitem, index) in list" class="rule-list-item">
@@ -29,6 +29,10 @@
 </script>
 
 <style lang="less" scoped>
+	.params-wrap {
+		border-top: 4px solid #ececec;
+		border-bottom: 4px solid #ececec;
+	}
 	.rule-list-item {
 		font-size: 12px;
 		width: 20%;
