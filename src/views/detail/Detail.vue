@@ -1,6 +1,6 @@
 <template>
 	<div class="detail">
-		<detail-tab-bar class="top-nav" @titleClick="titleClick"></detail-tab-bar>
+		<detail-tab-bar class="top-nav" @titleClick="titleClick" ref="nav"></detail-tab-bar>
 		<scroll class="content" 
 			ref="scroll"
 			:probeType="3" 
@@ -59,7 +59,8 @@
 				commentInfo: [],
 				recommendInfo: [],
 				isShowBackTop: false,
-				themeTopY:[]
+				themeTopY:[],
+				currentIndex: 0
 			}
 		},
 		created() {
@@ -89,17 +90,12 @@
 			getRecommend().then(res => {
 				console.log(res)
 				this.recommendInfo = res.data.data.list
-				console.log(this.recommendInfo)
 			})
 		},
 		methods: {
 			backTop(){
 				//返回顶部
 				this.$refs.scroll.scrollTo(0,0);
-			},
-			contentScroll(position){
-				//返回顶部是否显示
-				this.isShowBackTop = (-position.y) > 500;
 			},
 			goodsImgLoad() {
 				this.$refs.scroll.refresh();
@@ -108,9 +104,22 @@
 				this.themeTopY.push(this.$refs.param.$el.offsetTop);
 				this.themeTopY.push(this.$refs.comment.$el.offsetTop);
 				this.themeTopY.push(this.$refs.recommend.$el.offsetTop);
+				this.themeTopY.push(Number.MAX_VALUE);
 			},
 			titleClick(index){
 				this.$refs.scroll.scrollTo(0, -this.themeTopY[index], 200)
+			},
+			contentScroll(position){
+				//返回顶部是否显示
+				this.isShowBackTop = (-position.y) > 500;
+				const positionY = -(position.y);
+				let _lenth = this.themeTopY.length;
+				for(let i=0; i<_lenth-1; i++){
+					if(this.currentIndex !== i && (positionY >= this.themeTopY[i] && positionY < this.themeTopY[i+1])){
+						this.currentIndex = i;
+						this.$refs.nav.currentIndex = this.currentIndex;
+					}
+				}
 			}
 		}
 	}
