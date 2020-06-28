@@ -15,13 +15,14 @@
 			<goods-list :goods="recommendInfo" ref="recommend"></goods-list>
 		</scroll>
 		<back-top @click.native="backTop" v-show="isShowBackTop" />
+		<detail-bot-bar></detail-bot-bar>
 	</div>
 </template>
 
 <script>
 	import Scroll from "components/common/scroll/Scroll.vue";
-	import BackTop from "components/content/backTop/BackTop.vue";
-	import GoodsList from "components/content/goodsList/GoodsList";
+	// import BackTop from "components/content/backTop/BackTop.vue";
+	import GoodsList from "components/content/goodsList/GoodsList.vue";
 	
 	import DetailTabBar from './childCopm/DetailTabBar.vue'
 	import DetailSwiper from './childCopm/DetailSwiper.vue'
@@ -30,14 +31,17 @@
 	import DetailGoodsInfo from './childCopm/DetailGoodsInfo.vue'
 	import DetailParamInfo from './childCopm/DetailParamInfo.vue'
 	import DetailCommentInfo from './childCopm/DetailCommentInfo.vue'
-	// import DetailRecommendInfo from './childCopm/DetailRecommendInfo.vue'
+	import DetailBotBar from './childCopm/DetailBotBar.vue'
+	
+	import {scrollTopMixin} from '../../common/mixins.js'
 	
 	import {getDetail, Goods, Shop, Param, getRecommend} from 'network/detail.js'
 	export default {
 		name: 'Detail',
+		mixins: [scrollTopMixin],
 		components: {
 			Scroll,
-			BackTop,
+			// BackTop,
 			DetailTabBar,
 			DetailSwiper,
 			DetailBaseInfo,
@@ -45,8 +49,8 @@
 			DetailGoodsInfo,
 			DetailParamInfo,
 			DetailCommentInfo,
-			// DetailRecommendInfo
-			GoodsList
+			GoodsList,
+			DetailBotBar
 		},
 		data() {
 			return {
@@ -58,8 +62,8 @@
 				paramInfo: {},
 				commentInfo: [],
 				recommendInfo: [],
-				isShowBackTop: false,
-				themeTopY:[],
+				// isShowBackTop: false,
+				themeTopY: [],
 				currentIndex: 0
 			}
 		},
@@ -88,15 +92,14 @@
 			})
 			//请求推荐数据
 			getRecommend().then(res => {
-				console.log(res)
 				this.recommendInfo = res.data.data.list
 			})
 		},
 		methods: {
-			backTop(){
-				//返回顶部
-				this.$refs.scroll.scrollTo(0,0);
-			},
+			// backTop(){
+			// 	//返回顶部
+			// 	this.$refs.scroll.scrollTo(0,0);
+			// },
 			goodsImgLoad() {
 				this.$refs.scroll.refresh();
 				this.themeTopY = [];

@@ -34,15 +34,18 @@
 	import Scroll from "components/common/scroll/Scroll.vue";
 	import TabControl from "components/content/tabControl/TabControl";
 	import GoodsList from "components/content/goodsList/GoodsList";
-	import BackTop from "components/content/backTop/BackTop";
+	// import BackTop from "components/content/backTop/BackTop";
 	
 	import HomeSwiper from "./childComp/HomeSwiper";
 	import HomeRecommend from "./childComp/HomeRecommend";
 	import HomeFeature from "./childComp/HomeFeature";
 	
 	import {getHomeMulitData,getHomeGoods} from "network/home";
+	
+	import {scrollTopMixin} from '../../common/mixins.js'
 	export default {
 		name: 'Home',
+		mixins: [scrollTopMixin],
 		data() {
 			return {
 				banners: [],
@@ -53,7 +56,7 @@
 					'sell': {page: 0, list:[]}
 				},
 				currentType: 'pop',
-				isShowBackTop: false,
+				// isShowBackTop: false,
 				tabOffsetTop: 0,
 				isTabShow: false,
 				saveY: 0
@@ -64,7 +67,7 @@
 			TabControl,
 			GoodsList,
 			Scroll,
-			BackTop,
+			// BackTop,
 			HomeSwiper,
 			HomeRecommend,
 			HomeFeature
@@ -127,11 +130,11 @@
 					this.$refs.scroll.finishPullUp()
 				})
 			},
-			backTop(){
-				//返回顶部
-				// this.$refs.scroll.scroll.scrollTo(0,0,500);
-				this.$refs.scroll.scrollTo(0,0);
-			},
+			// backTop(){
+			// 	//返回顶部
+			// 	// this.$refs.scroll.scroll.scrollTo(0,0,500);
+			// 	this.$refs.scroll.scrollTo(0,0);
+			// },
 			contentScroll(position){
 				//返回顶部是否显示
 				this.isShowBackTop = (-position.y) > 500;
