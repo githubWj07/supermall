@@ -42,10 +42,10 @@
 	
 	import {getHomeMulitData,getHomeGoods} from "network/home";
 	
-	import {scrollTopMixin} from '../../common/mixins.js'
+	import {imgRefrashMixin,scrollTopMixin} from '../../common/mixins.js'
 	export default {
 		name: 'Home',
-		mixins: [scrollTopMixin],
+		mixins: [imgRefrashMixin,scrollTopMixin],
 		data() {
 			return {
 				banners: [],
@@ -59,7 +59,8 @@
 				// isShowBackTop: false,
 				tabOffsetTop: 0,
 				isTabShow: false,
-				saveY: 0
+				saveY: 0,
+				itemImgLister: null
 			}
 		},
 		components: {
@@ -75,11 +76,13 @@
 		activated() {
 			this.$refs.scroll.scrollTo(0, this.saveY, 0)
 			this.$refs.scroll.refresh();
-			// console.log(this.saveY + 'activated')
 		},
 		deactivated() {
+			//保存Y值
 			this.saveY = this.$refs.scroll.scroll.y
-			// console.log(this.saveY + 'deactivated')
+			
+			//取消全局的事件监听
+			this.$bus.$off('itemImgLoad',this.itemImgLister)
 		},
 		created() {
 			//请求多个数据（banner,类目）
@@ -89,15 +92,16 @@
 			this.getHomeGoods('pop')
 			this.getHomeGoods('new')
 			this.getHomeGoods('sell')
-			
 		},
-		mounted() {
-			//请求数据列表后刷新
-			this.$bus.$on('itemImgLoad', ()=> {
-				// console.log(this.$refs.scroll.refresh()
-				this.$refs.scroll.refresh();
-			})
-		},
+		// mounted() {
+		// 	//请求数据列表后刷新
+		// 	this.itemImgLister = ()=> {
+		// 		// console.log(this.$refs.scroll.refresh()
+				
+		// 		this.$refs.scroll.refresh();
+		// 	}
+		// 	this.$bus.$on('itemImgLoad',this.itemImgLister);
+		// },
 		methods: {
 			tabItemClick(index){
 				switch(index){

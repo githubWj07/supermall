@@ -33,12 +33,12 @@
 	import DetailCommentInfo from './childCopm/DetailCommentInfo.vue'
 	import DetailBotBar from './childCopm/DetailBotBar.vue'
 	
-	import {scrollTopMixin} from '../../common/mixins.js'
+	import {imgRefrashMixin,scrollTopMixin} from '../../common/mixins.js'
 	
 	import {getDetail, Goods, Shop, Param, getRecommend} from 'network/detail.js'
 	export default {
 		name: 'Detail',
-		mixins: [scrollTopMixin],
+		mixins: [imgRefrashMixin,scrollTopMixin],
 		components: {
 			Scroll,
 			// BackTop,
@@ -64,7 +64,8 @@
 				recommendInfo: [],
 				// isShowBackTop: false,
 				themeTopY: [],
-				currentIndex: 0
+				currentIndex: 0,
+				itemImgLister: null
 			}
 		},
 		created() {
@@ -95,6 +96,13 @@
 				this.recommendInfo = res.data.data.list
 			})
 		},
+		// mounted() {
+		// 	//请求数据列表后刷新
+		// 	this.itemImgLister = ()=> {
+		// 		this.$refs.scroll.refresh();
+		// 	}
+		// 	this.$bus.$on('itemImgLoad',this.itemImgLister);
+		// },
 		methods: {
 			// backTop(){
 			// 	//返回顶部
@@ -124,6 +132,10 @@
 					}
 				}
 			}
+		},
+		destroyed() {
+			//取消全局的事件监听
+			this.$bus.$off('itemImgLoad',this.itemImgLister)
 		}
 	}
 </script>
