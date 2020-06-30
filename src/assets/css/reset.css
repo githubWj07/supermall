@@ -107,6 +107,4 @@ display: -webkit-box;
 /* 文字颜色 */
 .text-pink{color:#ef4562;}
 /* 文字大小 */
-.f12{font-size: 0.32rem;}
-/* margin值 */
-.mb20{margin-bottom: 0.266666rem;}
+.f12{font-size: 12px;}

@@ -5,6 +5,7 @@
 			ref="scroll"
 			:probeType="3" 
 			@scroll="contentScroll">
+			<div>{{$store.state.cartList.length}}</div>
 			<detail-swiper :banners="topBnner"></detail-swiper>
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info :shop="shop"></detail-shop-info>
@@ -15,7 +16,7 @@
 			<goods-list :goods="recommendInfo" ref="recommend"></goods-list>
 		</scroll>
 		<back-top @click.native="backTop" v-show="isShowBackTop" />
-		<detail-bot-bar></detail-bot-bar>
+		<detail-bot-bar @addCart="addCart"></detail-bot-bar>
 	</div>
 </template>
 
@@ -131,6 +132,19 @@
 						this.$refs.nav.currentIndex = this.currentIndex;
 					}
 				}
+			},
+			//加入购物车
+			addCart() {
+				// 获取购物车需要展示的信息
+				const product = {}
+				product.image = this.topBnner[0];
+				product.title = this.goods.title;
+				product.desc = this.goods.discountDesc;
+				product.price = this.goods.price;
+				product.iid = this.iid;
+				
+				//将商品添加到购物车里
+				this.$store.commit('addCart', product)
 			}
 		},
 		destroyed() {
@@ -158,7 +172,7 @@
 	.content {
 		position: absolute;
 		top: 44px;
-		bottom: 0;
+		bottom: 49px;
 		left: 0;
 		right: 0;
 	}
