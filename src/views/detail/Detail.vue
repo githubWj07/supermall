@@ -1,6 +1,6 @@
 <template>
 	<div class="detail">
-		<detail-tab-bar class="top-nav" @titleClick="titleClick"></detail-tab-bar>
+		<detail-tab-bar class="top-nav" @titleClick="titleClick" ref="nav"></detail-tab-bar>
 		<scroll class="content" 
 			ref="scroll"
 			:probeType="3" 
@@ -15,6 +15,7 @@
 			<goods-list :goods="recommendInfo" ref="recommend"></goods-list>
 		</scroll>
 		<back-top @click.native="backTop" v-show="isShowBackTop" />
+		<detail-bot-bar></detail-bot-bar>
 	</div>
 </template>
 
@@ -30,6 +31,7 @@
 	import DetailGoodsInfo from './childCopm/DetailGoodsInfo.vue'
 	import DetailParamInfo from './childCopm/DetailParamInfo.vue'
 	import DetailCommentInfo from './childCopm/DetailCommentInfo.vue'
+	import DetailBotBar from "./childCopm/DetailBotBar.vue"
 	// import DetailRecommendInfo from './childCopm/DetailRecommendInfo.vue'
 	
 	import {getDetail, Goods, Shop, Param, getRecommend} from 'network/detail.js'
@@ -45,6 +47,7 @@
 			DetailGoodsInfo,
 			DetailParamInfo,
 			DetailCommentInfo,
+			DetailBotBar,
 			// DetailRecommendInfo
 			GoodsList
 		},
@@ -59,7 +62,8 @@
 				commentInfo: [],
 				recommendInfo: [],
 				isShowBackTop: false,
-				themeTopY:[]
+				themeTopY: [],
+				currentIndex: 0
 			}
 		},
 		created() {
@@ -89,7 +93,6 @@
 			getRecommend().then(res => {
 				console.log(res)
 				this.recommendInfo = res.data.data.list
-				console.log(this.recommendInfo)
 			})
 		},
 		methods: {
@@ -97,20 +100,30 @@
 				//返回顶部
 				this.$refs.scroll.scrollTo(0,0);
 			},
-			contentScroll(position){
-				//返回顶部是否显示
-				this.isShowBackTop = (-position.y) > 500;
-			},
 			goodsImgLoad() {
 				this.$refs.scroll.refresh();
-				this.themeTopY = [];
+				this.themeTopY=[];
 				this.themeTopY.push(0);
 				this.themeTopY.push(this.$refs.param.$el.offsetTop);
 				this.themeTopY.push(this.$refs.comment.$el.offsetTop);
 				this.themeTopY.push(this.$refs.recommend.$el.offsetTop);
+				this.themeTopY.push(Number.MAX_VALUE);
 			},
 			titleClick(index){
-				this.$refs.scroll.scrollTo(0, -this.themeTopY[index], 200)
+				this.$refs.scroll.scrollTo(0, -this.themeTopY[index], 1000)
+			},
+			contentScroll(position){
+				//返回顶部是否显示
+				this.isShowBackTop = (-position.y) > 500;
+				const positionY = -position.y;
+				let _length = this.themeTopY.length;
+				for (let i=0; i<_length-1; i++){
+					if(this.themeTopY !== i && (positionY >= this.themeTopY[i] && positionY < this.themeTopY[i+1])){
+						this.currentIndex = i;
+						this.$refs.nav.currentIndex = this.currentIndex
+					}
+				}
+				
 			}
 		}
 	}
@@ -134,7 +147,7 @@
 	.content {
 		position: absolute;
 		top: 44px;
-		bottom: 0;
+		bottom: 49px;
 		left: 0;
 		right: 0;
 	}
