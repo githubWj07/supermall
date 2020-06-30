@@ -34,15 +34,18 @@
 	import Scroll from "components/common/scroll/Scroll.vue";
 	import TabControl from "components/content/tabControl/TabControl";
 	import GoodsList from "components/content/goodsList/GoodsList";
-	import BackTop from "components/content/backTop/BackTop";
+	// import BackTop from "components/content/backTop/BackTop";
 	
 	import HomeSwiper from "./childComp/HomeSwiper";
 	import HomeRecommend from "./childComp/HomeRecommend";
 	import HomeFeature from "./childComp/HomeFeature";
 	
 	import {getHomeMulitData,getHomeGoods} from "network/home";
+	
+	import {imgRefrashMixin,scrollTopMixin} from '../../common/mixins.js'
 	export default {
 		name: 'Home',
+		mixins: [imgRefrashMixin,scrollTopMixin],
 		data() {
 			return {
 				banners: [],
@@ -53,10 +56,11 @@
 					'sell': {page: 0, list:[]}
 				},
 				currentType: 'pop',
-				isShowBackTop: false,
+				// isShowBackTop: false,
 				tabOffsetTop: 0,
 				isTabShow: false,
-				saveY: 0
+				saveY: 0,
+				itemImgLister: null
 			}
 		},
 		components: {
@@ -64,7 +68,7 @@
 			TabControl,
 			GoodsList,
 			Scroll,
-			BackTop,
+			// BackTop,
 			HomeSwiper,
 			HomeRecommend,
 			HomeFeature
@@ -72,11 +76,13 @@
 		activated() {
 			this.$refs.scroll.scrollTo(0, this.saveY, 0)
 			this.$refs.scroll.refresh();
-			// console.log(this.saveY + 'activated')
 		},
 		deactivated() {
+			//保存Y值
 			this.saveY = this.$refs.scroll.scroll.y
-			// console.log(this.saveY + 'deactivated')
+			
+			//取消全局的事件监听
+			this.$bus.$off('itemImgLoad',this.itemImgLister)
 		},
 		created() {
 			//请求多个数据（banner,类目）
@@ -86,15 +92,16 @@
 			this.getHomeGoods('pop')
 			this.getHomeGoods('new')
 			this.getHomeGoods('sell')
-			
 		},
-		mounted() {
-			//请求数据列表后刷新
-			this.$bus.$on('itemImgLoad', ()=> {
-				// console.log(this.$refs.scroll.refresh()
-				this.$refs.scroll.refresh();
-			})
-		},
+		// mounted() {
+		// 	//请求数据列表后刷新
+		// 	this.itemImgLister = ()=> {
+		// 		// console.log(this.$refs.scroll.refresh()
+				
+		// 		this.$refs.scroll.refresh();
+		// 	}
+		// 	this.$bus.$on('itemImgLoad',this.itemImgLister);
+		// },
 		methods: {
 			tabItemClick(index){
 				switch(index){
@@ -127,11 +134,11 @@
 					this.$refs.scroll.finishPullUp()
 				})
 			},
-			backTop(){
-				//返回顶部
-				// this.$refs.scroll.scroll.scrollTo(0,0,500);
-				this.$refs.scroll.scrollTo(0,0);
-			},
+			// backTop(){
+			// 	//返回顶部
+			// 	// this.$refs.scroll.scroll.scrollTo(0,0,500);
+			// 	this.$refs.scroll.scrollTo(0,0);
+			// },
 			contentScroll(position){
 				//返回顶部是否显示
 				this.isShowBackTop = (-position.y) > 500;

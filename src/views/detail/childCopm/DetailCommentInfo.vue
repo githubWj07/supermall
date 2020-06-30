@@ -42,8 +42,7 @@
 				//将时间戳转换成date对象
 				const date = new Date(value * 1000);
 				//将date进行格式化
-				return formatDate(date, 'yyyy-MM-dd')
-				
+				return formatDate(date, 'yyyy-MM-dd');
 			}
 		}
 	}
@@ -69,7 +68,6 @@
 				vertical-align: middle;
 			}
 		}
-		
 		.comment-text {
 			line-height: 20px;
 		}
@@ -82,7 +80,7 @@
 		}
 		.comment-info-images {
 			img{
-				width: 50px;
+				width: 60px;
 				height: 60px;
 				margin-right: 6px;
 			}
