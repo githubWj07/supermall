@@ -5,7 +5,7 @@
 			ref="scroll"
 			:probeType="3" 
 			@scroll="contentScroll">
-			<!-- <div>{{$store.state.cartList.length}}</div> -->
+			<div>{{$store.state.cartList.length}}</div>
 			<detail-swiper :banners="topBnner"></detail-swiper>
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info :shop="shop"></detail-shop-info>

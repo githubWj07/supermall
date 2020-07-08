@@ -1,10 +1,9 @@
 <template>
 	<div class="cart-wrap">
 		<nav-bar class="cart-nav">
-			<template #nav-center>购物车</template>
+			<template #nav-center>购物车({{num}})</template>
 		</nav-bar>
 	</div>
-	
 </template>
 
 <script>
@@ -13,6 +12,11 @@
 		name: 'Cart',
 		components: {
 			NavBar
+		},
+		computed: {
+			num() {
+				return this.$store.state.cartList.length;
+			}
 		}
 	}
 </script>
