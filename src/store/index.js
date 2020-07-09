@@ -9,14 +9,19 @@ const store = new Vuex.Store({
 	state: {
 		cartList: []
 	},
+	//修改store里的东西都需要经过mutations
 	mutations: {
 		addCart(state, payload){
-			let oldProduct = null;
-			for(let item of state.cartList){
-				if(item.iid === payload.iid){
-					oldProduct = item
-				}
-			}
+			// let oldProduct = null;
+			// for(let item of state.cartList){
+			// 	if(item.iid === payload.iid){
+			// 		oldProduct = item
+			// 	}
+			// }
+			//数组find()方法
+			let oldProduct = state.cartList.find(function(item){
+				return item.iid === payload.iid
+			})
 			if(oldProduct){
 				oldProduct.count += 1;
 			}else {
@@ -24,6 +29,7 @@ const store = new Vuex.Store({
 				state.cartList.push(payload)
 			}
 			// state.cartList.push(payload)
+			console.log(payload);
 		}
 	}
 })

@@ -23,6 +23,7 @@ export class Goods {
 	    this.title = itemInfo.title;
 		this.price = itemInfo.price;
 		this.oldPrice = itemInfo.oldPrice;
+		this.lowNowPrice = itemInfo.lowNowPrice;
 		this.discountDesc = itemInfo.discountDesc;
 		this.columns = columns;
 		this.services = shopInfo.services;

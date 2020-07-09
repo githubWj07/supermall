@@ -12,7 +12,7 @@
 			<p><img src="~assets/images/detail/icon03.png" alt=""></p>
 			<p>收藏</p>
 		</div>
-		<div class="btn cart-btn">加入购购物车</div>
+		<div class="btn cart-btn" @click="addCart">加入购购物车</div>
 		<div class="btn buy-btn">购买</div>
 	</div>
 </template>
