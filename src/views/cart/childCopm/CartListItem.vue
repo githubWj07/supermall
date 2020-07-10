@@ -25,12 +25,6 @@
 					return []
 				}
 			}
-		},
-		methods: {
-			checkClick(){
-				console.log(this.cartList.checked)
-				this.$store.state.cartList.checked = !this.$store.state.cartList.checked;
-			}
 		}
 	}
 </script>
