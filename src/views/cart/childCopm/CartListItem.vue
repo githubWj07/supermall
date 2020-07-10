@@ -2,7 +2,7 @@
 	<div>
 		<div class="cart-list-main flex" v-for="item in cartList" :key="item.iid">
 			<div class="cart-list-left flex">
-				<input type="checkbox" class="check">
+				<input type="checkbox" class="check" v-model="item.checked" >
 				<img :src="item.image" alt="" class="goods-img">
 			</div>
 			<div class="cart-list-right">
@@ -25,6 +25,12 @@
 					return []
 				}
 			}
+		},
+		methods: {
+			checkClick(){
+				console.log(this.cartList.checked)
+				this.$store.state.cartList.checked = !this.$store.state.cartList.checked;
+			}
 		}
 	}
 </script>
@@ -40,12 +46,11 @@
 		.check {
 			width: 20px;
 			height: 20px;
+			overflow: hidden;
 			border-radius: 100%;
-			margin-right: 10px;
 			border: 1px solid #ececec;
 		}
 		.check:checked {
-			border: 1px solid var(----color-high-text);
 			background: url(~assets/images/detail/check_active.png) no-repeat center;
 			background-size: cover;
 		}
@@ -54,7 +59,7 @@
 			height: 66px;
 			overflow: hidden;
 			border: 1px solid #ececec;
-			margin-right: 10px;
+			margin:0 10px;
 			border-radius: 6px;
 			vertical-align: middle;
 		}

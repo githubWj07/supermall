@@ -6,6 +6,7 @@
 		</nav-bar>
 		<!-- 购物车bar -->
 		<cart-list></cart-list>
+		<cart-bot-bar></cart-bot-bar>
 	</div>
 </template>
 
@@ -13,12 +14,13 @@
 	import NavBar from 'components/common/navbar/NavBar.vue'
 	
 	import CartList from './childCopm/CartList.vue'
-	
+	import CartBotBar from './childCopm/CartBotBar.vue'
 	export default {
 		name: 'Cart',
 		components: {
 			NavBar,
-			CartList
+			CartList,
+			CartBotBar
 		},
 		computed: {
 			num() {

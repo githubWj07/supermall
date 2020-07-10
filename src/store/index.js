@@ -26,10 +26,11 @@ const store = new Vuex.Store({
 				oldProduct.count += 1;
 			}else {
 				payload.count = 1;
+				payload.checked = true;
 				state.cartList.push(payload)
 			}
 			// state.cartList.push(payload)
-			console.log(payload);
+			// console.log(payload);
 		}
 	}
 })
