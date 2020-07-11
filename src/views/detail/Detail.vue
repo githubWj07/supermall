@@ -5,10 +5,7 @@
 			ref="scroll"
 			:probeType="3" 
 			@scroll="contentScroll">
-<<<<<<< HEAD
-=======
 			<div>{{$store.state.cartList.length}}</div>
->>>>>>> 795452170dd0c399f1da1ba3802bae1bcd95fdbe
 			<detail-swiper :banners="topBnner"></detail-swiper>
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info :shop="shop"></detail-shop-info>
@@ -78,11 +75,8 @@
 
 			//根据iid请求详情数据
 			getDetail(this.iid).then(res => {
-<<<<<<< HEAD
-				// console.log(res)
-=======
+				
 				// console.log(res);
->>>>>>> 795452170dd0c399f1da1ba3802bae1bcd95fdbe
 				const data = res.data.result;
 				//1.获取顶部banner
 				this.topBnner = data.itemInfo.topImages
@@ -148,19 +142,11 @@
 				product.image = this.topBnner[0];
 				product.title = this.goods.title;
 				product.desc = this.goods.discountDesc;
-<<<<<<< HEAD
-				product.price = this.goods.price;
-				product.iid = this.iid;			
-
-				//将商品添加到购物车里
-				this.$store.commit('addCart', product)
-=======
 				product.price = this.goods.lowNowPrice;
 				product.iid = this.iid;
 
 				//将商品添加到购物车里
 				this.$store.commit('addCart', product);
->>>>>>> 795452170dd0c399f1da1ba3802bae1bcd95fdbe
 			}
 		},
 		destroyed() {
