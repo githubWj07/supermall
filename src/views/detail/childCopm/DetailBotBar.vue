@@ -12,7 +12,7 @@
 			<p><img src="~assets/images/detail/icon03.png" alt=""></p>
 			<p>收藏</p>
 		</div>
-		<div class="btn cart-btn">加入购购物车</div>
+		<div class="btn cart-btn" @click="addCart">加入购购物车</div>
 		<div class="btn buy-btn">购买</div>
 	</div>
 </template>
@@ -36,7 +36,10 @@
 		left: 0;
 		right: 0;
 		background-color: #fff;
+<<<<<<< HEAD
 		box-shadow: 0 0 4px 4px #ececec;
+=======
+>>>>>>> 795452170dd0c399f1da1ba3802bae1bcd95fdbe
 		.bot-bar-item {
 			width: 16%;
 			font-size: 12px;
@@ -57,6 +60,7 @@
 		}
 		.cart-btn {
 			background-color: #F9CD0B;
+			line-height: 49px;
 		}
 		.buy-btn {
 			color: #fff;
@@ -64,3 +68,4 @@
 		}
 	}
 </style>
+

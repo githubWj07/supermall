@@ -71,7 +71,7 @@ q:before, q:after, blockquote:before, blockquote:after {
 content:””;
 }
 a {color: #666;display: block;text-decoration: none;}
-input {outline: none;}
+input {outline: none;-webkit-appearance: none;-webkit-appearance: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 /* 公共样式 */
 .flex{
     display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */ display: -moz-box; /* Firefox 17- */  
@@ -108,3 +108,4 @@ display: -webkit-box;
 .text-pink{color:#ef4562;}
 /* 文字大小 */
 .f12{font-size: 12px;}
+
